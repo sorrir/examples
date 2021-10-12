@@ -1,0 +1,96 @@
+{
+  "componentInstances": {
+    "dsbController": [
+      {
+        "name": "dsbController",
+        "startState": "dsbControllerStartState"
+      }
+    ],
+    "parkingManagement": [
+      {
+        "name": "parkingManagement",
+        "startState": "parkingManagementStartState"
+      }
+    ],
+    "barrierMCU": [
+      {
+        "name": "barrierMCU",
+        "startState": "compState"
+      }
+    ],
+    "ccReaderMCU": [
+      {
+        "name": "ccReaderMCU",
+        "startState": "compState"
+      }
+    ],
+    "presenceDetectionMCU": [
+      {
+        "name": "presenceDetectionMCU",
+        "startState": "compState"
+      }
+    ],
+    "prs": [
+      {
+        "name": "prs",
+        "startState": "compState"
+      }
+    ],
+    "barrierStatusMCU": [
+      {
+        "name": "barrierStatusMCU",
+        "startState": "compState"
+      }
+    ]
+  },
+  "connections": [
+    {
+      "sourceComponent": "prs",
+      "sourcePort": "TO_DSB_CONTROLLER",
+      "targetComponent": "dsbController",
+      "targetPort": "FROM_PRS"
+    },
+    {
+      "sourceComponent": "dsbController",
+      "sourcePort": "TO_PRS",
+      "targetComponent": "prs",
+      "targetPort": "FROM_DSB_CONTROLLER"
+    },
+    {
+      "sourceComponent": "presenceDetectionMCU",
+      "sourcePort": "TO_DSB_CONTROLLER",
+      "targetComponent": "dsbController",
+      "targetPort": "FROM_PRESENCE_DETECTION"
+    },
+    {
+      "sourceComponent": "ccReaderMCU",
+      "sourcePort": "TO_DSB_CONTROLLER",
+      "targetComponent": "dsbController",
+      "targetPort": "FROM_CC_READER"
+    },
+    {
+      "sourceComponent": "dsbController",
+      "sourcePort": "TO_BARRIER",
+      "targetComponent": "barrierMCU",
+      "targetPort": "FROM_DSB_CONTROLLER"
+    },
+    {
+      "sourceComponent": "dsbController",
+      "sourcePort": "TO_PARKING_MANAGEMENT",
+      "targetComponent": "parkingManagement",
+      "targetPort": "FROM_DSB"
+    },
+    {
+      "sourceComponent": "parkingManagement",
+      "sourcePort": "TO_DSB",
+      "targetComponent": "dsbController",
+      "targetPort": "FROM_PARKING_MANAGEMENT"
+    },
+    {
+      "sourceComponent": "barrierStatusMCU",
+      "sourcePort": "TO_DSB_CONTROLLER",
+      "targetComponent": "dsbController",
+      "targetPort": "FROM_BARRIER_STATUS"
+    }
+  ]
+}

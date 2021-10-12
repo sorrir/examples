@@ -1,0 +1,24 @@
+{
+	"name": "@sorrir/examples",
+	"version": "v0.1.0",
+	"license": "Apache-2.0",
+	"scripts": {
+		"npm-install-all": "loop 'npm install'",
+		"pnpm-install-all": "loop 'pnpm install'",
+		"lint-fix-all": "loop 'bash -c \"[[ \"X\" != \"X$(git diff --name-only --cached source)\" ]] && npm run lint-fix\" || echo \"sources unchanged\"'",
+		"lint-fix-all-force": "loop 'npm run lint-fix'",
+		"pnpm-create-lock-all": "loop 'bash -c \"[[ \"X\" != \"X$(git diff --name-only --cached package.json)\" ]] && npm run pnpm-create-lock\" || echo \"package.json unchanged\"' && git add */pnpm-lock.yaml",
+		"pnpm-create-lock-all-force": "loop 'npm run pnpm-create-lock'",
+		"getSetupInfo-all": "loop 'npm run --silent getSetupInfo > ./info/setupInfo.json' && git add */setupInfo.json",
+		"clean-up": "loop 'npm i && npm run build' --exclude .idea"
+	},
+	"pre-commit": [
+		"lint-fix-all",
+		"pnpm-create-lock-all",
+		"getSetupInfo-all"
+	],
+	"devDependencies": {
+		"loop": "^3.3.4",
+		"pre-commit": "^1.2.2"
+	}
+}

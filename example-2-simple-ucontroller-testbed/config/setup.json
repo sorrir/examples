@@ -1,0 +1,48 @@
+{
+    "componentInstances": {
+        "barrier": [
+            {
+                "name": "barrier",
+                "startState": "barrierStartState"
+            }
+        ],
+        "signalMCU": [
+            {
+                "name": "signalMCU",
+                "startState": "compState"
+            }
+        ],
+        "buttonMCU": [
+            {
+                "name": "buttonMCU",
+                "startState": "compState"
+            }
+        ],
+        "parkingManagement": [
+            {
+                "name": "parkingManagement",
+                "startState": "parkingManagementStartState"
+            }
+        ]
+    },
+    "connections": [
+        {
+            "sourceComponent": "barrier",
+            "sourcePort": "TO_PARKING_MANAGEMENT",
+            "targetComponent": "parkingManagement",
+            "targetPort": "FROM_BARRIER"
+        },
+        {
+            "sourceComponent": "buttonMCU",
+            "sourcePort": "TO_BARRIER",
+            "targetComponent": "barrier",
+            "targetPort": "FROM_BUTTON_MCU"
+        },
+        {
+            "sourceComponent": "parkingManagement",
+            "sourcePort": "TO_SIGNAL_MCU",
+            "targetComponent": "signalMCU",
+            "targetPort": "FROM_PARKING_MANAGEMENT"
+        }
+    ]
+}

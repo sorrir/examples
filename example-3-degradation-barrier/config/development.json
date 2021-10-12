@@ -1,0 +1,112 @@
+{
+  "DeploymentConfiguration": {
+    "a": {
+      "components": ["dsbController"]
+    },
+    "b": {
+      "components": ["parkingManagement"]
+    },
+    "ext": {
+      "components": ["barrierMCU", "ccReaderMCU", "presenceDetectionMCU", "barrierStatusMCU"]
+    },
+    "ext2": {
+      "components": ["prs"]
+    }
+  },
+  "HostConfiguration": {
+    "a": {
+      "host": "localhost",
+      "port": 1234
+    },
+    "b": {
+      "host": "localhost",
+      "port": 1235
+    },
+    "ext2": {
+      "host": "localhost",
+      "port": 8080
+    },
+    "ext": {
+      "host": "ext"
+    }
+  },
+  "MQTTConfiguration": {
+    "host": "test.mosquitto.org"
+  },
+  "CommunicationConfiguration": {
+    "connectionTechs": [
+      {
+        "sourceContainer": "ext",
+        "sourceComponent": "presenceDetectionMCU",
+        "sourcePort": "TO_DSB_CONTROLLER",
+        "targetContainer": "a",
+        "targetComponent": "dsbController",
+        "targetPort": "FROM_PRESENCE_DETECTION",
+        "commOption": "MQTT_EXTERNAL"
+      },
+      {
+        "sourceContainer": "ext",
+        "sourceComponent": "ccReaderMCU",
+        "sourcePort": "TO_DSB_CONTROLLER",
+        "targetContainer": "a",
+        "targetComponent": "dsbController",
+        "targetPort": "FROM_CC_READER",
+        "commOption": "MQTT_EXTERNAL"
+      },
+      {
+        "sourceContainer": "a",
+        "sourceComponent": "dsbController",
+        "sourcePort": "TO_BARRIER",
+        "targetContainer": "ext",
+        "targetComponent": "barrierMCU",
+        "targetPort": "FROM_DSB_CONTROLLER",
+        "commOption": "MQTT_EXTERNAL"
+      },
+      {
+        "sourceContainer": "a",
+        "sourceComponent": "dsbController",
+        "sourcePort": "TO_PARKING_MANAGEMENT",
+        "targetContainer": "b",
+        "targetComponent": "parkingManagement",
+        "targetPort": "FROM_DSB",
+        "commOption": "REST"
+      },
+      {
+        "sourceContainer": "b",
+        "sourceComponent": "parkingManagement",
+        "sourcePort": "TO_DSB",
+        "targetContainer": "a",
+        "targetComponent": "dsbController",
+        "targetPort": "FROM_PARKING_MANAGEMENT",
+        "commOption": "REST"
+      },
+      {
+        "sourceContainer": "ext2",
+        "sourceComponent": "prs",
+        "sourcePort": "TO_DSB_CONTROLLER",
+        "targetContainer": "a",
+        "targetComponent": "dsbController",
+        "targetPort": "FROM_PRS",
+        "commOption": "REST"
+      },
+      {
+        "sourceContainer": "a",
+        "sourceComponent": "dsbController",
+        "sourcePort": "TO_PRS",
+        "targetContainer": "ext2",
+        "targetComponent": "prs",
+        "targetPort": "FROM_DSB_CONTROLLER",
+        "commOption": "REST"
+      },
+      {
+        "sourceContainer": "ext",
+        "sourceComponent": "barrierStatusMCU",
+        "sourcePort": "TO_DSB_CONTROLLER",
+        "targetContainer": "a",
+        "targetComponent": "dsbController",
+        "targetPort": "FROM_BARRIER_STATUS",
+        "commOption": "MQTT_EXTERNAL"
+      }
+    ]
+  }
+}

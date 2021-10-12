@@ -1,0 +1,79 @@
+{
+  "HostConfiguration": {
+    "a": {
+      "host": "localhost",
+      "port": 1238
+    },
+    "b": {
+      "host": "localhost",
+      "port": 1235
+    },
+    "ext": {
+      "host": "localhost",
+      "port": 1236
+    }
+  },
+  "DeploymentConfiguration": {
+    "a": {
+      "components": ["call"]
+    },
+    "b": {
+      "components": ["echo"]
+    }
+  },
+  "CommunicationConfiguration": {
+    "connectionTechs": [
+      {
+        "sourceContainer": "ext",
+        "sourceComponent": "trigger",
+        "sourcePort": "TRIGGER_OUT",
+        "targetContainer": "a",
+        "targetComponent": "call",
+        "targetPort": "TRIGGER_IN",
+        "commOption": "REST"
+      },
+      {
+        "sourceContainer": "a",
+        "sourceComponent": "call",
+        "sourcePort": "ECHO_OUT",
+        "targetContainer": "b",
+        "targetComponent": "echo",
+        "targetPort": "ECHO_IN",
+        "commOption": "REST"
+      },
+      {
+        "sourceContainer": "b",
+        "sourceComponent": "echo",
+        "sourcePort": "ECHO_OUT",
+        "targetContainer": "a",
+        "targetComponent": "call",
+        "targetPort": "ECHO_IN",
+        "commOption": "REST"
+      }
+    ]
+  },
+  "MQTTConfiguration": {
+    "host": "test.mosquitto.org"
+  },
+  "BLEConfiguration": {
+    "a": {
+      "sendHost": "localhost",
+      "sendPort": 8080,
+      "listenHost": "localhost",
+      "listenPort": 8081
+    },
+    "b": {
+      "sendHost": "localhost",
+      "sendPort": 8080,
+      "listenHost": "localhost",
+      "listenPort": 8081
+    },
+    "ext": {
+      "sendHost": "localhost",
+      "sendPort": 8080,
+      "listenHost": "localhost",
+      "listenPort": 8081
+    }
+  },
+  "ShadowModeConfiguration": {}
+}

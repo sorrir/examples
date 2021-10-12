@@ -1,0 +1,42 @@
+{
+    "componentInstances": {
+        "echo": [
+            {
+                "name": "echo",
+                "startState": "echoStartState"
+            }
+        ],
+        "call": [
+            {
+                "name": "call",
+                "startState": "callStartState"
+            }
+        ],
+        "trigger": [
+            {
+                "name": "trigger",
+                "startState": "triggerStartState"
+            }
+        ]
+    },
+    "connections": [
+        {
+            "sourceComponent": "trigger",
+            "sourcePort": "TRIGGER_OUT",
+            "targetComponent": "call",
+            "targetPort": "TRIGGER_IN"
+        },
+        {
+            "sourceComponent": "call",
+            "sourcePort": "ECHO_OUT",
+            "targetComponent": "echo",
+            "targetPort": "ECHO_IN"
+        },
+        {
+            "sourceComponent": "echo",
+            "sourcePort": "ECHO_OUT",
+            "targetComponent": "call",
+            "targetPort": "ECHO_IN"
+        }
+    ]
+}

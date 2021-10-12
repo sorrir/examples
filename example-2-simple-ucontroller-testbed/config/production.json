@@ -1,0 +1,80 @@
+{
+  "HostConfiguration": {
+    "a": {
+      "host": "localhost",
+      "port": 1234
+    },
+    "b": {
+      "host": "localhost",
+      "port": 1235
+    },
+    "ext": {
+      "host": "ext"
+    }
+  },
+  "DeploymentConfiguration": {
+    "a": {
+      "components": ["barrier"]
+    },
+    "b": {
+      "components": ["parkingManagement"]
+    },
+    "ext": {
+      "components": ["signalMCU", "buttonMCU"]
+    }
+  },
+  "CommunicationConfiguration": {
+    "connectionTechs": [
+      {
+        "sourceContainer": "ext",
+        "sourceComponent": "buttonMCU",
+        "sourcePort": "TO_BARRIER",
+        "targetContainer": "a",
+        "targetComponent": "barrier",
+        "targetPort": "FROM_BUTTON_MCU",
+        "commOption": "MQTT_EXTERNAL"
+      },
+      {
+        "sourceContainer": "b",
+        "sourceComponent": "parkingManagement",
+        "sourcePort": "TO_SIGNAL_MCU",
+        "targetContainer": "ext",
+        "targetComponent": "signalMCU",
+        "targetPort": "FROM_PARKING_MANAGEMENT",
+        "commOption": "MQTT_EXTERNAL"
+      },
+      {
+        "sourceContainer": "a",
+        "sourceComponent": "barrier",
+        "sourcePort": "TO_PARKING_MANAGEMENT",
+        "targetContainer": "b",
+        "targetComponent": "parkingManagement",
+        "targetPort": "FROM_BARRIER",
+        "commOption": "REST"
+      }
+    ]
+  },
+  "MQTTConfiguration": {
+    "host": "test.mosquitto.org"
+  },
+  "BLEConfiguration": {
+    "a": {
+      "sendHost": "localhost",
+      "sendPort": 8080,
+      "listenHost": "localhost",
+      "listenPort": 8081
+    },
+    "b": {
+      "sendHost": "localhost",
+      "sendPort": 8080,
+      "listenHost": "localhost",
+      "listenPort": 8081
+    },
+    "ext": {
+      "sendHost": "ext",
+      "sendPort": 8080,
+      "listenHost": "ext",
+      "listenPort": 8081
+    }
+  }
+}
